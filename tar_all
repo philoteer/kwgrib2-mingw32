@@ -1,0 +1,41 @@
+#/bin/sh
+
+# make a tar image of wgrib2
+cd /export/wesley/wd51we
+
+g=g2clib-1.2.1
+j=jasper-1.900.1
+png=libpng-1.2.44
+zlib=zlib-1.2.5
+ip=iplib.2012
+
+tar -cvzf /tmp/wgrib2.tgz grib2/wgrib2/*.h grib2/wgrib2/*.c grib2/wgrib2/README* \
+    grib2/wgrib2/API grib2/wgrib2/function.sh grib2/wgrib2/Changes* grib2/wgrib2/*table \
+    grib2/$g/*.c grib2/$g/*.h grib2/$g/make*  grib2/$j.tar.gz grib2/tar_all \
+    grib2/*.doc  grib2/wgrib2/LIC* grib2/wgrib2/*dat \
+    grib2/$ip/*.f grib2/$ip/makefile grib2/$ip/readme* \
+    grib2/wgrib2/NEW_types grib2/makefile \
+    grib2/wgrib2/make* grib2/wgrib2/gribtab grib2/wgrib2/*txt \
+    grib2/READ* grib2/INSTALLING grib2/netcdf.tar.gz \
+    grib2/$png.tar.gz grib2/$zlib.tar.gz grib2/gctpc20.tar.Z grib2/makefile.gctpc grib2/proj.h \
+    grib2/aux_progs/*.c grib2/aux_progs/*.h grib2/aux_progs/*.make grib2/aux_progs/README 
+
+tar -cvzf /tmp/wgrib2_small.tgz grib2/wgrib2/*.h grib2/wgrib2/*.c grib2/wgrib2/README* \
+    grib2/wgrib2/API grib2/wgrib2/function.sh grib2/wgrib2/Changes* grib2/wgrib2/*table \
+    grib2/$g/*.c grib2/$g/*.h grib2/$g/make*  grib2/tar_all \
+    grib2/*.doc  grib2/wgrib2/LIC* grib2/wgrib2/*dat \
+    grib2/$ip/*.f grib2/$ip/makefile grib2/$ip/readme* \
+    grib2/wgrib2/NEW_types grib2/makefile \
+    grib2/wgrib2/make* grib2/wgrib2/gribtab grib2/wgrib2/*txt \
+    grib2/gctpc20.tar.Z grib2/makefile.gctpc grib2/proj.h grib2/READ* grib2/INSTALLING  \
+    grib2/aux_progs/*.c grib2/aux_progs/*.h grib2/aux_progs/*.make grib2/aux_progs/README 
+
+#    grib2/netcdf-4.1.3.tar.gz grib2/hdf5-1.8.2.tar.gz \
+
+[ "$1" = 'test' ] && exit
+
+scp /tmp/wgrib2.tgz wd51we@rzdm:
+scp /tmp/wgrib2_small.tgz wd51we@rzdm:wgrib2_nolib.tgz
+scp grib2/wgrib2/Changes wd51we@rzdm:ftp/wgrib2/
+scp grib2/README* wd51we@rzdm:ftp/wgrib2/
+scp grib2/INSTALLING wd51we@rzdm:ftp/wgrib2/

@@ -1,0 +1,28 @@
+                                OpenMP
+
+OpenMP is a shared-memory parallel-programming API.  As the grid dimensions get larger,
+the need for parallel computing becomes more important.  With OpenMP, wgrib2 will use
+multiple threads, typically one thread per core.  For the typical PC, wgrib2 will run 
+on the number of cores that are on the CPU chip which is typically 2, 3, 4, 6 or 8.
+The multi-core speedup is only significant when the grids have several million grid points.
+
+Typically running an OpenMP code is the same a running normal code.
+
+Status: in development, alpha
+  Tested: Redhat 5 linux, open64 compilers (2011-12) openmp 2.5
+  some testing/development: gcc/gfortran, xlc/xlf
+
+Hints:
+     use -g2clib 0 as the g2clib routines have no parallelation
+       note: constant files could give a different value from -g2clib 1.
+     complex-packing reading is parallelized when bitmaps are not used (-g2clib 0)
+     complex-packing reading is partly parallelized if bitmaps are used
+     jpeg2000 is not parallelized because it depends on external library
+     geolocation is partially parallelized
+     caution, stock gcc 4.1.x does not support openmp
+
+     Running multiple copies of wgrib2 can be done along with OpenMP.
+
+Under consideration:
+     parallelizing writing of complex-packing fields
+     parallelizing ieee encoding

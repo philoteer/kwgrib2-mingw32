@@ -1,0 +1,31 @@
+GCTPC is a software library for geolocation written by the USGS
+
+gctpc adds:
+           (1) support for ellipsoidal models of the earth 
+           (2) support for new projections
+           (3) transformations:  (lat,lon) -> (X, Y)
+                                 (X, Y) -> (lat, lon)
+
+           (1) is necessary as grid approach 1 km.
+           (3) is necessary if you want to replace the grib1-centric IPOLATES library
+                 (limited to spherical earth, 0.001 degrees lat/lon precision)
+
+
+location:  http://edcftp.cr.usgs.gov/pub/software/gctpc/
+status: public domain
+
+gctpc support is experimental, turn on by -gctpc 1 (default), turn off by -gctpc 0
+
+gctpc uses the routine sincos(double arg, double *result_sin, double *result_cos);
+
+This causes a problem with the current intel icc and gnu gcc as ths function
+conflicts with a non-standard built in function and the end results is
+a seg fault or bus error.  The fastest-cpu method of handling the problem is
+to comment out the routine in cproj.c and use the built-in routine.  The
+most compatible method that I could devise was to define a macro in proj.h 
+which redefines changes all occurances of sincos() -> gctpc_sincos().
+I am using the compatible solution.
+
+#define sincos(a,b,c)  gctpc_sincos(a,b,c)
+
+
