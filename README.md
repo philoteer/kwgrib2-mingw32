@@ -6,3 +6,5 @@ Pre-built Binary: https://github.com/philoteer/kwgrib2-mingw32/releases/download
 
 이미 빌드된 바이너리: https://github.com/philoteer/kwgrib2-mingw32/releases/download/20190618/kwgrib2-20190618.zip
 (그냥 받아서 압축 푸시면 됩니다.)
+
+20190618-update: 배포 바이너리의 DLL 의존성 문제 해결 (zlib dll을 실수로 다른 버전을 넣음..)
